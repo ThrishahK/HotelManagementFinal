@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Takeaway</title>
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: sans-serif;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #333;
+      border-radius: 8px;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .button-container {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+      margin: 0 10px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+    #order-form, #cancel-form {
+      display: none;
+    }
+    nav {
+      background: #030396d6;
+      padding: 15px 0;
+      text-align: center;
+    }
+    nav ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+    }
+    nav ul li {
+      display: inline;
+    }
+    nav ul li a {
+      text-decoration: none;
+      color: burlywood;
+      font-size: 18px;
+      padding: 10px 20px;
+      transition: 0.3s;
+    }
+    nav ul li a:hover {
+      background-color: burlywood;
+      color: black;
+      border-radius: 5px;
+    }
+    .welcome-header {
+      background: black;
+      padding: 20px;
+      color: burlywood;
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <header class="welcome-header">
+    <h1>Welcome to Our Luxurious Hotels</h1>
+    <p>Find your perfect stay with comfort and elegance.</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="takeaway.html">Home</a></li>
+      <li><a href="about.html">About Us</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+      <li><a href="reviews.html">Reviews</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="button-container">
+      <button onclick="showForm('order')">Place Order</button>
+      <button onclick="showForm('cancel')">Cancel Order</button>
+    </div>
+
+    <div id="order-form">
+
+        <h2>Order Your Food</h2>
+        <form action="place_order.php" method="POST">
+            <div class="form-group">
+                <h3>Select Your Food Items</h3>
+                <div class="food-item">
+                    <input type="checkbox" id="szechuan_noodles" name="food[]" value="Spicy Szechuan Noodles">
+                    <label for="szechuan_noodles">Spicy Szechuan Noodles</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="honey_chicken" name="food[]" value="Crispy Honey Glazed Chicken">
+                    <label for="honey_chicken">Crispy Honey Glazed Chicken</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="tomato_soup" name="food[]" value="Creamy Tomato Basil Soup">
+                    <label for="tomato_soup">Creamy Tomato Basil Soup</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="grilled_salmon" name="food[]" value="Grilled Salmon with Lemon Dill Sauce">
+                    <label for="grilled_salmon">Grilled Salmon with Lemon Dill Sauce</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="mushroom_risotto" name="food[]" value="Wild Mushroom Risotto">
+                    <label for="mushroom_risotto">Wild Mushroom Risotto</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="mango_salad" name="food[]" value="Mango Avocado Salad">
+                    <label for="mango_salad">Mango Avocado Salad</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="brownies" name="food[]" value="Chocolate Peanut Butter Brownies">
+                    <label for="brownies">Chocolate Peanut Butter Brownies</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="pancakes" name="food[]" value="Blueberry Pancakes">
+                    <label for="pancakes">Blueberry Pancakes</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="pad_thai" name="food[]" value="Vegetable Pad Thai">
+                    <label for="pad_thai">Vegetable Pad Thai</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="cheesecake" name="food[]" value="Strawberry Cheesecake">
+                    <label for="cheesecake">Strawberry Cheesecake</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="roasted_potatoes" name="food[]" value="Rustic Rosemary Roasted Potatoes">
+                    <label for="roasted_potatoes">Rustic Rosemary Roasted Potatoes</label>
+                </div>
+                
+                <div class="food-item">
+                    <input type="checkbox" id="pizza" name="food[]" value="Margherita Pizza">
+                    <label for="pizza">Margherita Pizza</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="burger" name="food[]" value="Classic Cheeseburger">
+                    <label for="burger">Classic Cheeseburger</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="fries" name="food[]" value="French Fries">
+                    <label for="fries">French Fries</label>
+                </div>
+                <div class="food-item">
+                    <input type="checkbox" id="coke" name="food[]" value="Coca-Cola">
+                    <label for="coke">Coca-Cola</label>
+                </div>
+            </div>
+            <div class="form-group">
+                <h3>Phone Number</h3>
+                <textarea id="cust_phone" name="cust_phone" rows="1" placeholder="Enter your phone number"></textarea>
+            </div>
+            <div class="form-group">
+                <h3>Delivery Location</h3>
+                <textarea id="delivery_location" name="delivery_location" rows="3" placeholder="Enter your full delivery address"></textarea>
+            </div>
+            <input type="hidden" id="Hotel_name" name="Hotel_name">
+            <br>
+            <button type="submit">Place Order</button>
+
+        </form>
+</div>
+        
+
+<div id="cancel-form">
+        <form action="cancel_order.php" method="POST">
+            <div class="form-group">
+                <label for="order_id">Enter Order ID to Cancel:</label>
+                <input type="text" id="order_id" name="order_id" placeholder="Enter your Order ID"required>
+            </div>
+            <br>
+            <div class="form-group">
+                <label for="cust_phone">Customer Phone Number:</label>
+                <input type="tel" id="cust_phone" name="cust_phone" placeholder="Enter your Order ID"required>
+              
+            </div>
+            <input type="hidden" id="Hotel_name" name="Hotel_name">
+            <br>
+            <button type="submit">Cancel Order</button>
+        </form>
+        
+    </div>
+    <script>
+        function showForm(type) {
+          const orderForm = document.getElementById('order-form');
+          const cancelForm = document.getElementById('cancel-form');
+      
+          if (type === 'order') {
+            orderForm.style.display = 'block';
+            cancelForm.style.display = 'none';
+          } else if (type === 'cancel') {
+            cancelForm.style.display = 'block';
+            orderForm.style.display = 'none';
+          }
+        }
+      
+        const urlParams = new URLSearchParams(window.location.search);
+        const hotelNameFromUrl = urlParams.get('Hotel_name');
+        if (hotelNameFromUrl) {
+          const hiddenInputs = document.querySelectorAll('input[name="Hotel_name"]');
+          hiddenInputs.forEach(input => input.value = hotelNameFromUrl);
+        }
+      
+        window.onload = function () {
+          const hotelName = new URLSearchParams(window.location.search).get("Hotel_name");
+          if (hotelName) {
+            const hiddenInputs = document.querySelectorAll('input[name="Hotel_name"]');
+            hiddenInputs.forEach(input => input.value = decodeURIComponent(hotelName));
+          }
+        }
+      </script>
+      
+</body>
+</html>

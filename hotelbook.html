@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Booking</title>
+    <style>
+ body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color: black;
+        }
+        .container {
+            background-color:gray;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+            text:black;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        .make-reservation-btn {
+            background-color: #007bff;
+            color:white;
+        }
+        .cancel-reservation-btn {
+            background-color: #dc3545;
+            color: white;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color:black;
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        #reservationForm, #cancellationForm {
+            display: none; /* Initially hide the forms */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color:grey;
+        }
+        #reservationForm.active, #cancellationForm.active {
+            display: block; /* Show the active form */
+        }
+        .error-message {
+            color: red;
+            margin-top: 5px;
+        }
+        .success-message {
+            color: green;
+            margin-top: 5px;
+        }
+        .booking-id-display {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #e9ecef;
+            text-align: center;
+            font-weight: bold;
+        }
+        nav {
+    background: #030396d6;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: burlywood;
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: burlywood;
+    color: black;
+    border-radius: 5px;
+}
+.welcome-header {
+    background: black;
+    padding: 20px;
+    color: burlywood;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    <header class="welcome-header">
+        <h1>Welcome to Our Luxurious Hotels</h1>
+        <p>Find your perfect stay with comfort and elegance.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+    </nav>
+    <div class="container">
+        <h2>Hotel Booking Form</h2>
+        <form id="bookingForm" method="post" action="hotelbookback.php">
+            <input type="hidden" id="hotel_id" name="hotel_id">
+            <div class="form-group">
+                <label for="cust_name">Your Name:</label>
+                <input type="text" id="cust_name" name="cust_name" required>
+            </div>
+            <div class="form-group">
+                <label for="cust_phone">Phone Number::</label>
+                <input type="text" id="cust_phone" name="cust_phone" required>
+            </div>
+            <div class="form-group">
+                <label for="check_in_date">Check-in Date:</label>
+                <input type="date" id="check_in_date" name="check_in_date" required>
+            </div>
+            <div class="form-group">
+                <label for="check_out_date">Check-out Date:</label>
+                <input type="date" id="check_out_date" name="check_out_date" required>
+            </div>
+            <div class="form-group">
+                <button type="submit">Book Now</button>
+            </div>
+            <div id="message" class=""></div>
+        </form>
+    </div>
+
+    <script>
+    
+document.addEventListener("DOMContentLoaded", function () {
+  const urlParams = new URLSearchParams(window.location.search);
+  const hotelId = urlParams.get("hotel_id");
+  document.getElementById("hotel_id").value = hotelId;
+});
+</script>
+
+    
+</body>
+</html>
+    

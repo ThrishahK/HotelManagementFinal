@@ -1,0 +1,197 @@
+<?php
+// Database connection details
+$servername = "localhost"; // Replace with your server name
+$username = "your_username"; // Replace with your database username
+$password = "your_password"; // Replace with your database password
+$dbname = "HotelDB";
+
+// Create connection
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+$sql = "SELECT hotel_id, hotel_name, hotel_ratings, city, area, state FROM Hotels";
+$result = $conn->query($sql);
+
+$hotels = [];
+if ($result->num_rows > 0) {
+    while($row = $result->fetch_assoc()) {
+        $hotels[] = $row;
+    }
+}
+$conn->close();
+
+// Encode the hotel data as JSON
+$hotel_data_json = json_encode($hotels);
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hotel Gallery</title>
+    <style>
+        nav {
+            background: #030396d6;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        nav ul li {
+            display: inline;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: burlywood;
+            font-size: 18px;
+            padding: 10px 20px;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: burlywood;
+            color: black;
+            border-radius: 5px;
+        }
+
+        body {
+            background-color: black;
+            color: white;
+            font-family: sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .hotel-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .hotel-card {
+            border: 1px solid #333;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .hotel-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+        .rating {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: gold;
+            margin-bottom: 10px;
+        }
+        .book-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .book-button:hover {
+            background-color: #0056b3;
+        }
+        .hotel-location {
+            font-style: italic;
+            color: #ccc;
+            margin-bottom: 5px;
+        }
+        .welcome-header {
+            background: black;
+            padding: 20px;
+            color: burlywood;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <header class="welcome-header">
+        <h1>Welcome to Our Luxurious Hotels</h1>
+        <p>Find your perfect stay with comfort and elegance.</p>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="reviews.html">Reviews</a></li>
+        </ul>
+    </nav>
+    <h1>Featured Hotels</h1>
+    <div class="hotel-grid" id="hotelGrid">
+        </div>
+
+    <script>
+        const hotelData = JSON.parse('<?php echo $hotel_data_json; ?>');
+        const hotelGrid = document.getElementById('hotelGrid');
+
+        hotelData.forEach(hotel => {
+            const hotelCard = document.createElement('div');
+            hotelCard.classList.add('hotel-card');
+
+            const img = document.createElement('img');
+            img.src = 'hotel_placeholder.jpg'; // Replace with actual image paths if available
+            img.alt = hotel.hotel_name;
+
+            const h3 = document.createElement('h3');
+            h3.textContent = hotel.hotel_name;
+
+            const locationDiv = document.createElement('div');
+            locationDiv.classList.add('hotel-location');
+            locationDiv.textContent = `${hotel.city}, ${hotel.area}, ${hotel.state}`;
+
+            const ratingDiv = document.createElement('div');
+            ratingDiv.classList.add('rating');
+            ratingDiv.textContent = 'Rating: ';
+            for (let i = 0; i < Math.floor(hotel.hotel_ratings); i++) {
+                ratingDiv.textContent += '⭐';
+            }
+            ratingDiv.textContent += ` (${hotel.hotel_ratings})`;
+
+            const bookLink = document.createElement('a');
+            bookLink.href = `hotelbook.html?hotel_id=${hotel.hotel_id}`;
+            bookLink.style.display = 'block';
+            bookLink.style.textDecoration = 'none';
+            bookLink.style.color = 'inherit';
+
+            const bookButton = document.createElement('button');
+            bookButton.classList.add('book-button');
+            bookButton.dataset.hotelId = hotel.hotel_id;
+            bookButton.textContent = 'Book Now';
+
+            bookLink.appendChild(bookButton);
+
+            hotelCard.appendChild(img);
+            hotelCard.appendChild(h3);
+            hotelCard.appendChild(locationDiv);
+            hotelCard.appendChild(ratingDiv);
+            hotelCard.appendChild(bookLink);
+
+            hotelGrid.appendChild(hotelCard);
+        });
+    </script>
+</body>
+</html>

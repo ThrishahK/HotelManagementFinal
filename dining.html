@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dining Reservation</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+            background-color:black; /* Light background */
+        }
+        .container {
+            background-color:black;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #2c3e50; /* Dark heading color */
+        }
+        .button-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 0 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            background-color: #3498db; /* Blue button */
+            color: white;
+        }
+        button:hover {
+            background-color: #2980b9; /* Darker blue hover */
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #34495e; /* Dark label color */
+        }
+        input[type="text"],
+        input[type="tel"],
+        input[type="time"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #bdc3c7; /* Lighter border */
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type="checkbox"] {
+            margin-right: 5px;
+        }
+        #reservationForm, #cancellationForm {
+            display: none; /* Initially hide the forms */
+            margin-top: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: grey;
+        }
+        #reservationForm.active, #cancellationForm.active {
+            display: block; /* Show the active form */
+        }
+        .error-message {
+            color: #e74c3c; /* Red error message */
+            margin-top: 5px;
+        }
+        .success-message {
+            color: #2ecc71; /* Green success message */
+            margin-top: 5px;
+            text-align: center;
+        }
+        .booking-id-display {
+            margin-top: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background-color: #ecf0f1;
+            text-align: center;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        nav {
+    background: #030396d6;
+    padding: 15px 0;
+    text-align: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: burlywood;
+    font-size: 18px;
+    padding: 10px 20px;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    background-color: burlywood;
+    color: black;
+    border-radius: 5px;
+}
+.welcome-header {
+    background: black;
+    padding: 20px;
+    color: burlywood;
+    text-align: center;
+}
+    </style>
+</head>
+<body>
+    
+        <header class="welcome-header">
+            <h1>Welcome to Our Luxurious Hotels</h1>
+            <p>Find your perfect stay with comfort and elegance.</p>
+        </header>
+    
+        <nav>
+            <ul>
+                <li><a href="dineoptions.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="contact.html">Contact Us</a></li>
+                <li><a href="reviews.html">Reviews</a></li>
+            </ul>
+        </nav>
+    <div class="container">
+        <h2>Dining Reservation</h2>
+        <div class="button-container">
+            <button id="makeReservationBtn">Make Reservation</button>
+            <button id="cancelReservationBtn">Cancel Reservation</button>
+        </div>
+
+        <form id="reservationForm" method="post" action="dinigconn.php">
+            <h3>Make a Reservation</h3>
+            <div class="form-group">
+                <label for="dining_type">Dining Spot:</label>
+                <select id="dining_type" name="dining_type" required>
+                    <option value="">-- Select Location --</option>
+                    <option value="rooftop">Rooftop</option>
+                    <option value="cafe">Cafe</option>
+                    <option value="bar_and_restaurant">Bar & Restaurant</option>
+                    <option value="buffet">Buffet</option>
+                </select>
+                <div class="error-message" id="locationError"></div>
+            </div>
+            <div class="form-group">
+                <label for="cust_phone">Phone Number:</label>
+                <input type="tel" id="cust_phone" name="cust_phone" required>
+                <div class="error-message" id="phoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="dnumber">Number of Diners:</label>
+                <input type="number" id="dnumber" name="dnumber" required min="1">
+                <div class="error-message" id="dinersError"></div>
+            </div>
+            <div class="form-group">
+                <label for="dining_time">Reservation Timing:</label>
+                <input type="time" id="dining_time" name="dining_time" required>
+                <div class="error-message" id="timingError"></div>
+            </div>
+            <div class="form-group">
+                <label>Food Preference:</label>
+                <input type="checkbox" id="veg" name="veg" value="veg">
+                <label for="veg">Veg</label>
+                <input type="checkbox" id="non_veg" name="non_veg" value="non_veg">
+                <label for="non_veg">Non-Veg</label>
+                <div class="error-message" id="foodPreferenceError"></div>
+            </div>
+            <input type="hidden" id="Hotel_name" name="Hotel_name">
+
+            <button type="submit">Make Reservation</button>
+            <div class="success-message" id="reservationSuccess" style="display:none;">Reservation submitted successfully!</div>
+            <div class="error-message" id="reservationGeneralError" style="display:none;">An error occurred. Please try again.</div>
+            <div class="booking-id-display" id="bookingIdDisplay" style="display:none;">
+                Your Booking ID: <span id="generatedBookingId"></span>
+            </div>
+        </form>
+
+        <form id="cancellationForm" method="post" action="dinigconn.php">
+            <h3>Cancel Reservation</h3>
+            <div class="form-group">
+                <label for="cancelPhone">Phone Number:</label>
+                <input type="text" id="cancelPhone" name="cust_phone" required>
+                <div class="error-message" id="cancelPhoneError"></div>
+            </div>
+            <div class="form-group">
+                <label for="bookingId">Booking Id:</label>
+                <input type="text" id="bookingId" name="dining_id" required>
+                <div class="error-message" id="bookingIdError"></div>
+            </div>
+            <button type="submit">Cancel Reservation</button>
+            <div class="success-message" id="cancellationSuccess" style="display:none;">Reservation cancelled successfully!</div>
+            <div class="error-message" id="cancellationGeneralError" style="display:none;">An error occurred. Please try again.</div>
+        </form>
+    </div>
+    <script>
+     
+    const makeReservationBtn = document.getElementById('makeReservationBtn');
+    const cancelReservationBtn = document.getElementById('cancelReservationBtn');
+    const reservationForm = document.getElementById('reservationForm');
+    const cancellationForm = document.getElementById('cancellationForm');
+
+    makeReservationBtn.addEventListener('click', function() {
+        reservationForm.style.display = 'block';
+        cancellationForm.style.display = 'none';
+    });
+
+    cancelReservationBtn.addEventListener('click', function() {
+        cancellationForm.style.display = 'block';
+        reservationForm.style.display = 'none';
+    });
+    
+ 
+    const urlParams = new URLSearchParams(window.location.search);
+    const hotelNameFromUrl = urlParams.get('Hotel_name');
+   
+    if (hotelNameFromUrl) {
+        document.getElementById('Hotel_name').value = hotelNameFromUrl;
+    }
+
+    window.onload = function () {
+    const urlParams = new URLSearchParams(window.location.search);
+    const hotelName = urlParams.get("Hotel_name");
+    if (hotelName) {
+        document.getElementById("Hotel_name").value = decodeURIComponent(hotelName);
+    }
+};
+
+
+    </script>
+</body>
+</html>
