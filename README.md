@@ -53,12 +53,16 @@ The platform allows customers to book rooms, manage reservations, explore dining
 
 ## Future Enhancements
 
-- User authentication
-- Admin dashboard
-- Online payment gateway integration
-- Email notifications
-- Room availability tracking
-- Analytics and reporting
+- Secure user authentication and role-based access control.
+- Online payment gateway integration.
+- Real-time room availability tracking.
+- Admin dashboard for reservation and customer management.
+- Email and SMS booking confirmations.
+- Customer review and rating system.
+- Room recommendation system based on user preferences.
+- Automated invoice generation and booking reports.
+- Mobile-responsive enhancements and progressive web app support.
+- Analytics dashboard for hotel occupancy and revenue tracking.
 
 ## Author
 
